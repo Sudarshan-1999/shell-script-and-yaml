@@ -1,0 +1,26 @@
+---
+- name: Install SourceTree
+  hosts: win
+  become: false
+  
+  tasks:
+  - name: Download SourceTree installer
+    win_get_url:
+      url: https://product-downloads.atlassian.com/software/sourcetree/windows/ga/SourceTreeSetup-3.3.8.exe
+      dest: C:\Temp\SourceTreeSetup-3.3.8.exe
+
+  - name: Install SourceTree
+    win_package:
+      path: C:\Temp\SourceTreeSetup-3.3.8.exe
+      product_id: '{FE3B7D54-96E1-46FD-8369-52F7BDBCBDBC}'
+      arguments: '/S'
+      state: present
+      
+  - name: Add Bitbucket Server account to SourceTree
+    win_command: >
+      C:\Temp\SourceTreeSetup-3.3.8.exe
+      --sourcetreeUpdatedAutoClose=1
+      --noassist --prefs accounts
+      --url=https://{{ bitbucket_server_hostname }}
+      --username={{ bitbucket_username }}
+      --password={{ bitbucket_password }}

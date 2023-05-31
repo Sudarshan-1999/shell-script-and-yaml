@@ -1,0 +1,41 @@
+---
+- name: "Install Visual Studio Professional 2019"
+  hosts: win
+  gather_facts: false
+  become: false
+  tasks:
+    - name: Copy File
+      win_copy:
+        src: /home/sd/vs_Professional.exe
+        dest: C:\Temp\
+    - name: Install Development tools C++ VS Professional
+      ansible.windows.win_package:
+        path: C:\Temp\vs_Professional.exe
+        product_id: '{D1437F51-786A-4F57-A99C-F8E94FBA1BD8}'
+        arguments:
+        - --norestart
+        - --passive
+        - --wait 
+        - --add
+        - Microsoft.VisualStudio.Workload.VCTools 
+        - --add
+        - Microsoft.VisualStudio.ComponentGroup.VC.Tools.142.x86.x64
+        - --add
+        - Microsoft.VisualStudio.Component.VC.ATL 
+        - --add
+        - Microsoft.VisualStudio.ComponentGroup.NativeDesktop.Llvm.Clang 
+        - --add
+        - Microsoft.VisualStudio.Component.VC.Llvm.ClangToolset 
+        - --add
+        - Microsoft.Component.VC.Runtime.UCRTSDK 
+        - --add
+        - Microsoft.VisualStudio.Component.VC.CMake.Project 
+        - --add
+        - Microsoft.Net.Component.4.7.2.TargetingPack 
+        - --add
+        - Microsoft.Net.Component.4.8.SDK 
+        - --add
+        - Microsoft.VisualStudio.Component.VC.v141.x86.x64 
+        - --add
+        - Microsoft.VisualStudio.Component.VC.140
+        

@@ -1,0 +1,82 @@
+---
+- name: "Install Visual Studio Professional 2022"
+  hosts: win
+  gather_facts: false
+  become: false
+  tasks:
+    - name: Copy File
+      win_copy:
+        src: /home/sd/VisualStudioSetup.exe
+        dest: C:\Temp\
+    - name: Install MSBuild thingy with arguments split to prevent quotes
+      ansible.windows.win_package:
+        path: C:\Temp\VisualStudioSetup.exe
+        product_id: '{D1437F51-786A-4F57-A99C-F8E94FBA1BD8}'
+        arguments:
+        - --norestart
+        - --passive
+        - --wait
+        - --add 
+        - Microsoft.VisualStudio.Workload.NativeDesktop 
+        - --add 
+        - Microsoft.VisualStudio.Component.Windows10SDK.18362 
+        - --add 
+        - Microsoft.VisualStudio.Component.VC.CMake.Project 
+        - --add 
+        - Microsoft.Component.MSBuild	
+        - --add 
+        - Microsoft.VisualStudio.Component.Roslyn.Compiler	
+        - --add 
+        - Microsoft.VisualStudio.Component.TextTemplating	
+        - --add 
+        - Microsoft.VisualStudio.Component.VC.CoreIde	
+        - --add
+        - Microsoft.VisualStudio.Component.VC.Redist.14.Latest	
+        - --add 
+        - Microsoft.VisualStudio.ComponentGroup.NativeDesktop.Core 	
+        - --add 
+        - Component.Microsoft.VisualStudio.LiveShare.2022 
+        - --add
+        - Microsoft.VisualStudio.Component.Debugger.JustInTime 	
+        - --add 
+        - Microsoft.VisualStudio.Component.Graphics 
+        - --add
+        - Microsoft.VisualStudio.Component.Graphics.Tools	
+        - --add
+        - Microsoft.VisualStudio.Component.IntelliCode 
+        - --add
+        - Microsoft.VisualStudio.Component.JavaScript.TypeScript 	
+        - --add
+        - Microsoft.VisualStudio.Component.NuGet	
+        - --add
+        - Microsoft.VisualStudio.Component.Roslyn.LanguageServices 
+        - --add
+        - Microsoft.VisualStudio.Component.SecurityIssueAnalysis	
+        - --add
+        - Microsoft.VisualStudio.Component.TypeScript.TSServer	
+        - --add
+        - Microsoft.VisualStudio.Component.VC.ASAN	
+        - --add
+        - Microsoft.VisualStudio.Component.VC.ATL	
+        - --add
+        - Microsoft.VisualStudio.Component.VC.ATL.ARM64		
+        - --add
+        - Microsoft.VisualStudio.Component.VC.DiagnosticTools 
+        - --add
+        - Microsoft.VisualStudio.Component.VC.TestAdapterForBoostTest 
+        - --add
+        - Microsoft.VisualStudio.Component.VC.TestAdapterForGoogleTest	
+        - --add
+        - Microsoft.VisualStudio.Component.VC.Tools.ARM64	
+        - --add
+        - Microsoft.VisualStudio.Component.VC.Tools.ARM64EC	
+        - --add
+        - Microsoft.VisualStudio.Component.VC.Tools.x86.x64	
+        - --add
+        - Microsoft.VisualStudio.Component.Windows11SDK.22000	
+        - --add
+        - Microsoft.VisualStudio.Component.Windows11SDK.22621	
+        - --add
+        - Microsoft.VisualStudio.ComponentGroup.WebToolsExtensions 
+        - --add
+        - Microsoft.VisualStudio.ComponentGroup.WebToolsExtensions.CMake
